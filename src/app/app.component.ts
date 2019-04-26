@@ -9,21 +9,22 @@ import { Component } from '@angular/core';
         Welcome to {{title}}!
       </h1>
       <img width="300" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-      <p>Notez ma super app :)</p>
+      <p>Notez ma super app !</p>
 
-      <ng-template #t let-fill="fill">
-        <span class="star" [class.full]="fill === 100">
-          <span class="half" [style.width.%]="fill">&hearts;</span>&hearts;
-        </span>
-      </ng-template>
-      
-      <ngb-rating [(rate)]="currentRate" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
-      
-      <hr>
-      <pre>Rate: <b>{{currentRate}}</b></pre>
-      <button class="btn btn-sm btn-outline-primary mr-2" (click)="currentRate = 1.35">1.35</button>
-      <button class="btn btn-sm btn-outline-primary mr-2" (click)="currentRate = 4.72">4.72</button>
-      </div>
+<div class="form-group">
+  <ngb-rating [formControl]="ctrl"></ngb-rating>
+  <div class="form-text small">
+    <div *ngIf="ctrl.valid" class="text-success">Thanks!</div>
+    <div *ngIf="ctrl.invalid" class="text-danger">Please rate us</div>
+  </div>
+</div>
+
+<hr>
+<pre>Model: <b>{{ ctrl.value }}</b></pre>
+<button class="btn btn-sm btn-outline-{{ ctrl.disabled ? 'danger' : 'success'}} mr-2" (click)="toggle()">
+  {{ ctrl.disabled ? "control disabled" : " control enabled" }}
+</button>
+<button class="btn btn-sm btn-outline-primary mr-2" (click)="ctrl.setValue(null)">Clear</button></div>
     <h2>Here are some links to help you start: </h2>
     <ul>
       <li>
