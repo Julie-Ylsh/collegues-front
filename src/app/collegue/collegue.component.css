@@ -1,0 +1,4 @@
+/* Alignement de la police sur les card */
+.card-text {
+    text-align: left
+}
