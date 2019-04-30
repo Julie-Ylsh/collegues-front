@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { collegueMock } from '../mock/collegues.mock'
 import { Collegue } from '../models/Collegue';
 
+
 @Injectable({
   providedIn: 'root'
 })

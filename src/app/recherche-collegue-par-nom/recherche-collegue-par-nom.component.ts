@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { collegueMock } from '../mock/collegues.mock'
 import { Collegue } from '../models/Collegue';
+import{DataService} from '../services/data.service'
 
 @Component({
   selector: 'app-recherche-collegue-par-nom',
   templateUrl: './recherche-collegue-par-nom.component.html',
-  styleUrls: ['./recherche-collegue-par-nom.component.css']
+  styleUrls: ['./recherche-collegue-par-nom.component.css'],
+  
 })
 export class RechercheCollegueParNomComponent implements OnInit {
   nomCollegue: string;
@@ -14,23 +16,13 @@ export class RechercheCollegueParNomComponent implements OnInit {
   listeMats: string[] = [];
   afficher = false;
   messageErreur:String = null;
-  constructor() { }
+  constructor(private _srv:DataService) { }
 
   ngOnInit() {
   }
 
   rechercherCollegue(saisieValue: string) {
-    this.nomCollegue = saisieValue;
-
-    for (let col of this.collegueTab) {
-      if (col.nom == saisieValue) {
-        this.listeMats.push(col.matricule);
-        this.afficher = true;
-      }
-    }
-if (this.listeMats.length == 0){
-   this.messageErreur = 'Pas de collègue trouvé'
-}
+    this.listeMats = this._srv.rechercherParNom(saisieValue);
   }
 
 

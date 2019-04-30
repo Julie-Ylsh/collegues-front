@@ -5,7 +5,8 @@ import{DataService} from './services/data.service'
 @Component({
   selector: 'app-root',
   templateUrl:'./app.component.html',
-  styles: []
+  styles: [],
+  providers: [DataService]
 })
 export class AppComponent {
   constructor(private _srv:DataService){}
