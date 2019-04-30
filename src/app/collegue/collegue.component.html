@@ -2,52 +2,60 @@
   <div class="card">
     <div class="card-header">{{col.nom}} {{col.prenoms}}</div>
     <div class="row card-body">
-      <img class="col-4 " src="https://internetjulie.com/wp-content/uploads/2018/10/AdobeStock_84018860.jpeg" alt="Card image cap"
-        height="100%">
+      <img class="col-4 " src="https://internetjulie.com/wp-content/uploads/2018/10/AdobeStock_84018860.jpeg"
+        alt="Card image cap" height="100%">
       <div class="col-8">
         <div class="row ">
-          <p class="col-6 card-text">Fonction :</p>
-          <p class="col-6 card-text">Vice-présidente</p>
-          <p class="col-6 card-text">Département :</p>
-          <p class="col-6 card-text">Irak</p>
+          <p class="col-6 card-text">Matricule :</p>
+          <p class="col-6 card-text">M01</p>
+          <p class="col-6 card-text">Date de naissance :</p>
+          <p class="col-6 card-text">04/12/1994</p>
           <p class="col-6 card-text">E-mail :</p>
-          <p class="col-6 card-text">{{col.email}}</p>
+          <div [hidden]="!edition">
+            <input style="height: 30px" type="texte" #saisieMail value="ini">
+          </div>
+          <p [hidden]="edition" class="col-6 card-text">julie@hotmail.fr</p>
           <p class="col-6 card-text">Téléphone :</p>
-          <p class="col-6 card-text">0771638681</p>
+          <div [hidden]="!edition">
+            <input style="height: 30px" type="texte" #saisieTel>
+          </div>
+          <p [hidden]="edition" class="col-6 card-text">0771638681</p>
         </div>
       </div>
-      <a href="#" class="offset-9 btn btn-primary ajoutCollaborateur" role="button" aria-disabled="true">Editer</a>
-      
-      <ng-template #content let-modal>
-        <div class="modal-header">
-          <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    </div>
+    <div class="col-3 offset-9">
+      <button (click)="afficherModification()">Basculer en mode édition</button>
+    </div>
+    <div [hidden]="!edition" class="col-3 offset-9">
+      <ng-template  #content let-modal>
+        <div class="modal-header ">
+          <h4 class="modal-title" id="modal-basic-title">Créer un collègue</h4>
           <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <!-- Form à remettre quand on aura réglé les erreurs 
-          <form>
-                <div class="form-group">
-                  <label for="dateOfBirth">Date of birth</label>
-                  <div class="input-group">
-                    <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">
-                    <div class="input-group-append">
-                      <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
-                    </div>
-                  </div>
-                </div>
-              </form>
-            -->
+          Vous souhaitez ajouter un collègue avec les paramètres suivants :
+          <hr>
+          <div class="row ">
+            <p class="col-6 card-text">E-mail :</p>
+            <p class="col-6 card-text">{{saisieMail.value | uppercase}}</p>
+
+            <p class="col-6 card-text">Téléphone :</p>
+            <p class="col-6 card-text">{{saisieTel.value}}</p>
+          </div>
+
+          <hr>
+          Merci de vérifier que ce sont les bons paramètres !
+
+
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+          <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ajouter</button>
         </div>
       </ng-template>
 
-      <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
-
-      <hr>
+      <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Créer un collègue</button>
 
       <pre>{{closeResult}}</pre>
     </div>

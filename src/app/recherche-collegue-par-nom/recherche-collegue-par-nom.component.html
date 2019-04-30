@@ -1,0 +1,14 @@
+<p>
+  Rechercher un collègue
+</p>
+<input type="texte" #saisieNom (keydown.enter)="rechercherCollegue(saisieNom.value)">
+<button (click)="rechercherCollegue(saisieNom.value)">Rechercher</button>
+
+<!--Essai avec un ngIf-->
+<div *ngIf="afficher == true; else pasTrouve">
+  <h4>Vous avez demandé le collègue avec le nom "{{nomCollegue}}"
+    <br />Matricule(s) associés : {{listeMats}} </h4>
+</div>
+<ng-template #pasTrouve>
+  <h4>{{messageErreur}}</h4>
+</ng-template>
