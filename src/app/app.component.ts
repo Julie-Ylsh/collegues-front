@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Collegue } from './models/Collegue';
+import{DataService} from './services/data.service'
 
 @Component({
   selector: 'app-root',
@@ -7,8 +8,12 @@ import { Collegue } from './models/Collegue';
   styles: []
 })
 export class AppComponent {
-  Julie = new Collegue ('A32', 'Jeltsch', 'Julie', 'julie.bouaye@hotmail.fr', '1994-12-4', 'urlphoto');
+  constructor(private _srv:DataService){}
+
+  julie = this._srv.recupererCollegueCourant();
+ 
   title = 'collegues-front';
   images = [1, 2, 3].map(() => `https://picsum.photos/900/500?random&t=${Math.random()}`);
 
+  
 }
