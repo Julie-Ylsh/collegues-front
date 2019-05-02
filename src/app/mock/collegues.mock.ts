@@ -26,3 +26,12 @@ collegueMock.push(new Collegue(
     'julie@mail.net'
 ));
 
+collegueMock.push(new Collegue(
+    '1657fghdfg',
+    'Jeltsch',
+    'Catherine',
+    '1994-01-01',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUP0GXR8VxmxVGlaaM_vTOE_G8qb38BQ3L7VUhMNk2MyW9SkZ9',
+    'julie@mail.net'
+));
+

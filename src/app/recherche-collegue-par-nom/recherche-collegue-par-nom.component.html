@@ -6,7 +6,7 @@
 
 <!--Essai avec un ngIf-->
 <div *ngIf="afficher == true; else pasTrouve">
-  <h4>Vous avez demandé le collègue avec le nom "{{nomCollegue}}"
+  <h4>Vous avez demandé le collègue avec le nom "{{saisieNom.value}}"
     <br />Matricule(s) associé(s) : {{listeMats}} </h4>
 </div>
 <ng-template #pasTrouve>

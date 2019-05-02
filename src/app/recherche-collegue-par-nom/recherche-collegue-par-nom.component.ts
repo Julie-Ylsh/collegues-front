@@ -23,6 +23,14 @@ export class RechercheCollegueParNomComponent implements OnInit {
 
   rechercherCollegue(saisieValue: string) {
     this.listeMats = this._srv.rechercherParNom(saisieValue);
+    if (this.listeMats.length == 0) {
+      this.messageErreur = 'Pas de collègue trouvé'
+      this.afficher = false;
+    }
+
+    else {
+      this.afficher = true;
+    }
   }
 
 

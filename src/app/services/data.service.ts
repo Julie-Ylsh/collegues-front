@@ -16,17 +16,13 @@ export class DataService {
   rechercherParNom(nom: string): string[] {
     // retourner une liste de matricules fictifs à partir du fichier `src/app/mock/matricules.mock.ts`.
     this.nomCollegue = nom;
-
+  this.listeMats = [];
     for (let col of collegueMock) {
       if (col.nom == nom) {
         this.listeMats.push(col.matricule);
-        this.afficher = true;
-      }
+              }
     }
-    if (this.listeMats.length == 0) {
-      this.messageErreur = 'Pas de collègue trouvé'
-    }
-
+    
     return this.listeMats;
   }
 
