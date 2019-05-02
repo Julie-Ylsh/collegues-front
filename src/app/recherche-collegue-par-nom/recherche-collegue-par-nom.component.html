@@ -1,14 +1,17 @@
 <p>
-  Rechercher un collègue
+  Rechercher un collègue (avec Spring)
 </p>
 <input type="texte" #saisieNom (keydown.enter)="rechercherCollegue(saisieNom.value)">
 <button (click)="rechercherCollegue(saisieNom.value)">Rechercher</button>
 
 <!--Essai avec un ngIf-->
-<div *ngIf="afficher == true; else pasTrouve">
+<div *ngIf="afficheCollegue == true; else pasCollegue">
   <h4>Vous avez demandé le collègue avec le nom "{{saisieNom.value}}"
-    <br />Matricule(s) associé(s) : {{listeMats}} </h4>
+    <br />Matricule(s) associé(s) : </h4>
+  <br />
+  <div *ngFor="let mat of collegueTab">
+    <a href=# (click)="clickC1(mat.matricule, saisieNom.value)">{{mat.prenoms}} {{mat.nom}}, matricule : {{mat.matricule}} </a></div>
 </div>
-<ng-template #pasTrouve>
+<ng-template #pasCollegue>
   <h4>{{messageErreur}}</h4>
 </ng-template>

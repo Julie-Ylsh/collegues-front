@@ -6,6 +6,8 @@ import {NgbModule,NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstra
 import { ReactiveFormsModule } from '@angular/forms';
 import { CollegueComponent } from './collegue/collegue.component';
 import { RechercheCollegueParNomComponent } from './recherche-collegue-par-nom/recherche-collegue-par-nom.component';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 @NgModule({
@@ -15,7 +17,7 @@ import { RechercheCollegueParNomComponent } from './recherche-collegue-par-nom/r
     RechercheCollegueParNomComponent
       ],
   imports: [
-    BrowserModule, NgbModule, ReactiveFormsModule
+    BrowserModule, NgbModule, ReactiveFormsModule, HttpClientModule
   ],
   exports: [],
   providers: [],
@@ -25,5 +27,7 @@ import { RechercheCollegueParNomComponent } from './recherche-collegue-par-nom/r
 export class AppModule { 
   
 }
+
+export class MonModule {}
 
 

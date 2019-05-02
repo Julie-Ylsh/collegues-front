@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Collegue } from '../models/Collegue';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { DataService } from '../services/data.service';
 
 
 
@@ -11,15 +12,23 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 })
 export class CollegueComponent implements OnInit {
   edition = false;
+  collegueDemande: Collegue;
+
+//boolean pour savoir si on affiche le premier card ou pas
+  premierCard = true;
     
   @Input() col: Collegue;
 
   ngOnInit() {
+    this.demoSubSrv.prendreAbonnement().subscribe(valeurEmise => {
+      this.collegueDemande = valeurEmise;
+      this.premierCard = false;
+    });
   }
 
   closeResult: string;
 
-  constructor(private modalService: NgbModal) { }
+  constructor(private modalService: NgbModal, private demoSubSrv: DataService) { }
 
   open(content) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {

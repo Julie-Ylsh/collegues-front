@@ -1,4 +1,5 @@
-<div class="col-12 ">
+
+<div class="col-12 " *ngIf="premierCard == true; else cardDemande">
   <div class="card">
     <div class="card-header">{{col.nom}} {{col.prenoms}}</div>
     <div class="row card-body">
@@ -62,3 +63,73 @@
   </div>
 
 </div>
+
+<ng-template #cardDemande>
+    <div class="col-12 ">
+        <div class="card">
+            <div class="card-header">{{collegueDemande.nom}} {{collegueDemande.prenoms}}</div>
+            <div class="row card-body">
+              <img class="col-4 " src="{{collegueDemande.photoUrl}}"
+                alt="Card image cap" height="100%">
+              <div class="col-8">
+                <div class="row ">
+                  <p class="col-6 card-text">Matricule :</p>
+                  <p class="col-6 card-text">M{{collegueDemande.matricule}}</p>
+                  <p class="col-6 card-text">Date de naissance :</p>
+                  <p class="col-6 card-text">{{collegueDemande.dateDeNaissance}}</p>
+                  <p class="col-6 card-text">E-mail :</p>
+                  <div [hidden]="!edition">
+                    <input style="height: 30px" type="texte" #saisieMail value="mail@mail.fr">
+                  </div>
+                  <p [hidden]="edition" class="col-6 card-text">{{collegueDemande.email}}</p>
+                  <p class="col-6 card-text">Téléphone :</p>
+                  <div [hidden]="!edition">
+                    <input style="height: 30px" type="texte" #saisieTel>
+                  </div>
+                  <p [hidden]="edition" class="col-6 card-text">0771638681</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-3 offset-9">
+              <button (click)="afficherModification()">Basculer en mode édition</button>
+            </div>
+            <div [hidden]="!edition" class="col-3 offset-9">
+              <ng-template  #content let-modal>
+                <div class="modal-header ">
+                  <h4 class="modal-title" id="modal-basic-title">Créer un collègue</h4>
+                  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  Vous souhaitez ajouter un collègue avec les paramètres suivants :
+                  <hr>
+                  <div class="row ">
+                    <p class="col-6 card-text">E-mail :</p>
+                    <p class="col-6 card-text">{{saisieMail.value | uppercase}}</p>
+        
+                    <p class="col-6 card-text">Téléphone :</p>
+                    <p class="col-6 card-text">{{saisieTel.value}}</p>
+                  </div>
+        
+                  <hr>
+                  Merci de vérifier que ce sont les bons paramètres !
+        
+        
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ajouter</button>
+                </div>
+              </ng-template>
+        
+              <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Créer un collègue</button>
+        
+              <pre>{{closeResult}}</pre>
+            </div>
+          </div>
+        
+
+    </div>
+
+
+</ng-template>
