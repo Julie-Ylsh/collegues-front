@@ -10,7 +10,7 @@
     <br />Matricule(s) associé(s) : </h4>
   <br />
   <div *ngFor="let mat of collegueTab">
-    <a href=# (click)="clickC1(mat.matricule, saisieNom.value)">{{mat.prenoms}} {{mat.nom}}, matricule : {{mat.matricule}} </a></div>
+    <a href=# (click)="clickC1(mat.matricule)">{{mat.prenoms}} {{mat.nom}}, matricule : {{mat.matricule}} </a></div>
 </div>
 <ng-template #pasCollegue>
   <h4>{{messageErreur}}</h4>
