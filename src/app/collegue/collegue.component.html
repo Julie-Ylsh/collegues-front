@@ -1,135 +1,167 @@
-
+<!--Template à l'initialisation, lorsqu'aucun collègue est selectionné-->
 <div class="col-12 " *ngIf="premierCard == true; else cardDemande">
   <div class="card">
     <div class="card-header">{{col.nom}} {{col.prenoms}}</div>
     <div class="row card-body">
-      <img class="col-4 " src="https://internetjulie.com/wp-content/uploads/2018/10/AdobeStock_84018860.jpeg"
-        alt="Card image cap" height="100%">
+      <img class="col-4 " [src]="col.photoUrl"alt="Card image cap" height="100%">
       <div class="col-8">
         <div class="row ">
           <p class="col-6 card-text">Matricule :</p>
-          <p class="col-6 card-text">M01</p>
+          <p class="col-6 card-text">M{{col.matricule}}</p>
           <p class="col-6 card-text">Date de naissance :</p>
-          <p class="col-6 card-text">04/12/1994</p>
-          <p class="col-6 card-text">E-mail :</p>
+          <p class="col-6 card-text">{{col.dateDeNaissance}}</p>
+
           <div [hidden]="!edition">
-            <input style="height: 30px" type="texte" #saisieMail value="ini">
+            <form class="col-12 needs-validation" novalidate (ngSubmit)="submit()" #formCtrl="ngForm">
+              <div class="row ">
+                <label class="col-6 card-text">E-mail :</label><input class="col-6 card-text"
+                  [(ngModel)]="col.email" #saisieMail="ngModel" name="email" required minlength="4">
+                <label class="col-6 card-text">Photo Url :</label><input class="col-6 card-text"
+                  [(ngModel)]="col.photoUrl" #saisieUrl="ngModel" name="photoUrl" required minlength="7">
+                <button [hidden]=true type="submit">Valider</button>
+                <!--Nan mais on sait jamais, ça peut servir-->
+              </div>
+            </form>
           </div>
-          <p [hidden]="edition" class="col-6 card-text">julie@hotmail.fr</p>
-          <p class="col-6 card-text">Téléphone :</p>
-          <div [hidden]="!edition">
-            <input style="height: 30px" type="texte" #saisieTel>
+
+          <div class="col-12" [hidden]="edition">
+            <div class="row ">
+              <p class="col-6 card-text">E-mail :</p>
+              <p class="col-6 card-text">{{col.email}}</p>
+              <p class="col-6 card-text">Photo Url :</p>
+              <p class="col-6 card-text">{{col.photoUrl}}</p>
+            </div>
           </div>
-          <p [hidden]="edition" class="col-6 card-text">0771638681</p>
         </div>
       </div>
-    </div>
-    <div class="col-3 offset-9">
-      <button (click)="afficherModification()">Basculer en mode édition</button>
-    </div>
-    <div [hidden]="!edition" class="col-3 offset-9">
-      <ng-template  #content let-modal>
-        <div class="modal-header ">
-          <h4 class="modal-title" id="modal-basic-title">Créer un collègue</h4>
-          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          Vous souhaitez ajouter un collègue avec les paramètres suivants :
-          <hr>
-          <div class="row ">
-            <p class="col-6 card-text">E-mail :</p>
-            <p class="col-6 card-text">{{saisieMail.value | uppercase}}</p>
+      <div class="col-3 offset-9">
+        <button [hidden]="edition" (click)="afficherModification()">Basculer en mode édition</button>
+      </div>
 
-            <p class="col-6 card-text">Téléphone :</p>
-            <p class="col-6 card-text">{{saisieTel.value}}</p>
+      <!--Modal qui apparaît si le bouton "basculer en mode edition" est cliqué-->
+      <div [hidden]="!edition" class="col-3 offset-9">
+        <ng-template #content let-modal>
+          <div class="modal-header ">
+            <h4 class="modal-title" id="modal-basic-title">Créer un collègue</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
+          <div class="modal-body">
+            Vous souhaitez ajouter un collègue avec les paramètres suivants :
+            <hr>
+            <div class="row ">
+              <p class="col-6 card-text">E-mail :</p>
+              <p class="col-6 card-text">{{saisieMail.value | uppercase}}</p>
 
-          <hr>
-          Merci de vérifier que ce sont les bons paramètres !
+              <p class="col-6 card-text">Photo Url :</p>
+              <p class="col-6 card-text">{{saisieUrl.value }}</p>
+            </div>
+
+            <hr>
+            Merci de vérifier que ce sont les bons paramètres !
 
 
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ajouter</button>
-        </div>
-      </ng-template>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark"
+              (click)="modal.close('Save click');submit()">Valider</button>
+          </div>
+        </ng-template>
 
-      <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Créer un collègue</button>
-
-      <pre>{{closeResult}}</pre>
+        <button [disabled]="!formCtrl.valid" class="btn btn-lg btn-outline-primary" (click)="open(content)">Modifier le collègue</button>
+        <ng-container *ngIf="formCtrl.touched && formCtrl.invalid">
+          <p>Les champs rentrés ne respectent pas la consigne de Mr Oddet</p>
+        </ng-container>
+        <pre>{{closeResult}}</pre>
+      </div>
     </div>
-  </div>
 
+  </div>
 </div>
 
+<!--Template si un collègue est sélectionné-->
 <ng-template #cardDemande>
-    <div class="col-12 ">
-        <div class="card">
-            <div class="card-header">{{collegueDemande.nom}} {{collegueDemande.prenoms}}</div>
-            <div class="row card-body">
-              <img class="col-4 " src="{{collegueDemande.photoUrl}}"
-                alt="Card image cap" height="100%">
-              <div class="col-8">
+  <div class="col-12 ">
+    <div class="card">
+      <div class="card-header">{{collegueDemande.nom}} {{collegueDemande.prenoms}}</div>
+      <div class="row card-body">
+        <img class="col-4 " src="{{collegueDemande.photoUrl}}" alt="Card image cap" height="100%">
+        <div class="col-8">
+          <div class="row ">
+            <p class="col-6 card-text">Matricule :</p>
+            <p class="col-6 card-text">M{{collegueDemande.matricule}}</p>
+            <p class="col-6 card-text">Date de naissance :</p>
+            <p class="col-6 card-text">{{collegueDemande.dateDeNaissance}}</p>
+
+            <!--Form qui apparait après le bouton "basculer en mode édition"-->
+            <div [hidden]="!edition">
+              <form class="col-12 needs-validation" novalidate (ngSubmit)="submitDemande()" #formCtrl2="ngForm">
                 <div class="row ">
-                  <p class="col-6 card-text">Matricule :</p>
-                  <p class="col-6 card-text">M{{collegueDemande.matricule}}</p>
-                  <p class="col-6 card-text">Date de naissance :</p>
-                  <p class="col-6 card-text">{{collegueDemande.dateDeNaissance}}</p>
-                  <p class="col-6 card-text">E-mail :</p>
-                  <div [hidden]="!edition">
-                    <input style="height: 30px" type="texte" #saisieMail value="mail@mail.fr">
-                  </div>
-                  <p [hidden]="edition" class="col-6 card-text">{{collegueDemande.email}}</p>
-                  <p class="col-6 card-text">Téléphone :</p>
-                  <div [hidden]="!edition">
-                    <input style="height: 30px" type="texte" #saisieTel>
-                  </div>
-                  <p [hidden]="edition" class="col-6 card-text">0771638681</p>
+                  <label class="col-6 card-text">E-mail :</label><input class="col-6 card-text"
+                    [(ngModel)]="collegueDemande.email" #saisieMailMobile="ngModel" name="email2" required minlength="4">
+                  <label class="col-6 card-text">Photo Url :</label><input class="col-6 card-text"
+                    [(ngModel)]="collegueDemande.photoUrl" #saisieUrlMobile="ngModel" name="photoUrl2" required minlength="7">
+                  <button [hidden]=true type="submit">Valider</button>
+                  <!--Nan mais on sait jamais, ça peut servir-->
                 </div>
+              </form>
+            </div>
+
+            <!--Form qui apparait avant le bouton "basculer en mode édition"-->
+            <div class="col-12" [hidden]="edition">
+              <div class="row ">
+                <p class="col-6 card-text">E-mail :</p>
+                <p class="col-6 card-text">{{collegueDemande.email}}</p>
+                <p class="col-6 card-text">Photo Url :</p>
+                <p class="col-6 card-text">{{collegueDemande.photoUrl}}</p>
               </div>
             </div>
-            <div class="col-3 offset-9">
-              <button (click)="afficherModification()">Basculer en mode édition</button>
-            </div>
-            <div [hidden]="!edition" class="col-3 offset-9">
-              <ng-template  #content let-modal>
-                <div class="modal-header ">
-                  <h4 class="modal-title" id="modal-basic-title">Créer un collègue</h4>
-                  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  Vous souhaitez ajouter un collègue avec les paramètres suivants :
-                  <hr>
-                  <div class="row ">
-                    <p class="col-6 card-text">E-mail :</p>
-                    <p class="col-6 card-text">{{saisieMail.value | uppercase}}</p>
-        
-                    <p class="col-6 card-text">Téléphone :</p>
-                    <p class="col-6 card-text">{{saisieTel.value}}</p>
-                  </div>
-        
-                  <hr>
-                  Merci de vérifier que ce sont les bons paramètres !
-        
-        
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ajouter</button>
-                </div>
-              </ng-template>
-        
-              <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Créer un collègue</button>
-        
-              <pre>{{closeResult}}</pre>
-            </div>
           </div>
-        
+        </div>
+        <div class="col-3 offset-9">
+          <button [hidden]="edition" (click)="afficherModification()">Basculer en mode édition</button>
+        </div>
+        <div [hidden]="!edition" class="col-3 offset-9">
+          <ng-template #content let-modal>
+            <div class="modal-header ">
+              <h4 class="modal-title" id="modal-basic-title">Créer un collègue</h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Vous souhaitez ajouter un collègue avec les paramètres suivants :
+              <hr>
+              <div class="row ">
+                <p class="col-6 card-text">E-mail :</p>
+                <p class="col-6 card-text">{{collegueDemande.email | uppercase}}</p>
+
+                <p class="col-6 card-text">Photo Url :</p>
+                <p class="col-6 card-text">{{collegueDemande.photoUrl}}</p>
+              </div>
+
+              <hr>
+              Merci de vérifier que ce sont les bons paramètres !
+
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-dark"
+                (click)="modal.close('Save click');submitDemande()">Ajouter</button>
+            </div>
+          </ng-template>
+
+          <button [disabled]="!formCtrl2.valid" class="btn btn-lg btn-outline-primary" (click)="open(content)">Créer
+            un
+            collègue</button>
+          <ng-container *ngIf="formCtrl2.touched && formCtrl2.invalid">
+            <p>Les champs rentrés ne respectent pas la consigne de Mr Oddet</p>
+          </ng-container>
+          <pre>{{closeResult}}</pre>
+        </div>
+      </div>
 
     </div>
-
-
+  </div>
 </ng-template>

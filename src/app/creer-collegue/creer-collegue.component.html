@@ -1,0 +1,89 @@
+<button type="button" class="btn btn-outline-dark" (click)="afficherCreation=!afficherCreation; creationOK=false">Créer
+  un
+  collègue</button>
+<br />
+<br />
+
+<!--Module qui s'affiche ou se désaffiche en fonction-->
+<div [hidden]="!afficherCreation" class="row">
+  <form class="col-12 needs-validation" novalidate (ngSubmit)="submit()" #formCtrl="ngForm"
+    style="text-align: left; padding-left:10%; padding-right:10%">
+    <div class="row form-group">
+      <label class="col-6 ">Nom :</label>
+      <input class="col-6 card-text" [(ngModel)]="collegueACreer.nom" #saisieNom="ngModel" name="nom" required
+        minlength="2">
+
+      <label class="col-6 " style="margin-top: 2%">Prénom(s) :</label>
+      <input class="col-6 card-text" [(ngModel)]="collegueACreer.prenoms" #saisiePrenom="ngModel" name="prenoms"
+        required minlength="2" style="margin-top: 2%">
+
+      <label class="col-6 " style="margin-top: 2%">Date de naissance :</label>
+      <input class="col-4 form-control" name="date" placeholder="yyyy-mm-dd" ngbDatepicker [(ngModel)]="dateCollegue"
+        #d="ngbDatepicker" style="margin-top: 2%">
+      <div class="col-2 input-group-append" style="margin-top: 2%">
+        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+      </div>
+
+      <label class="col-6 " style="margin-top: 2%">E-mail :</label>
+      <input class="col-6 card-text" [(ngModel)]="collegueACreer.email" #saisieMail="ngModel" name="email" required
+        minlength="4" style="margin-top: 2%">
+
+      <label class="col-6 " style="margin-top: 2%">Photo Url :</label>
+      <input class="col-6 card-text" [(ngModel)]="collegueACreer.photoUrl" #saisieUrl="ngModel" name="photoUrl" required
+        minlength="7" style="margin-top: 2%">
+
+    </div>
+  </form>
+
+
+  <!--Modal-->
+  <div class="col-3 offset-9">
+    <ng-template #content let-modal>
+      <div class="modal-header ">
+        <h4 class="modal-title" id="modal-basic-title">Créer un collègue</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Vous souhaitez ajouter un collègue avec les paramètres suivants :
+        <hr>
+        <div class="row ">
+          <p class="col-6 card-text">Nom :</p>
+          <p class="col-6 card-text">{{saisieNom.value | uppercase}}</p>
+
+          <p class="col-6 card-text">Prénom(s) :</p>
+          <p class="col-6 card-text">{{saisiePrenom.value }}</p>
+
+          <p class="col-6 card-text">Date de naissance :</p>
+          <p class="col-6 card-text">{{dateAfficherModal | date:'longDate'}}</p>
+
+          <p class="col-6 card-text">E-mail :</p>
+          <p class="col-6 card-text">{{saisieMail.value}}</p>
+
+          <p class="col-6 card-text">Photo Url :</p>
+          <p class="col-6 card-text">{{saisieUrl.value }}</p>
+        </div>
+
+        <hr>
+        Merci de vérifier que ce sont les bons paramètres !
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click');submit()">Valider</button>
+      </div>
+    </ng-template>
+
+    <button [disabled]="!formCtrl.valid" class="btn btn-lg btn-outline-primary" (click)="open(content)">Créer le
+      collègue</button>
+    <ng-container *ngIf="formCtrl.touched && formCtrl.invalid">
+      <p>Les champs rentrés ne respectent pas la consigne de Mr Oddet</p>
+    </ng-container>
+    <pre>{{closeResult}}</pre>
+  </div>
+</div>
+
+<div [hidden]="!creationOK">
+  Votre collègue a bien été créé ! :)
+</div>

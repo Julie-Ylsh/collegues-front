@@ -4,7 +4,7 @@ import { Collegue } from '../models/Collegue';
 import { Subject, Observable } from 'rxjs'
 import { environment } from '../../environments/environment';
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -20,7 +20,7 @@ export class DataService {
 
   recupererCollegueCourant(): Collegue {
     // retourner le collègue fictif à partir du fichier `src/app/mock/collegues.mock.ts`.
-    return new Collegue('A32', 'Jeltsch', 'Julie', 'julie.bouaye@hotmail.fr', '1994-12-4', 'urlphoto');
+    return new Collegue('2', 'Jeltsch', 'Julie', 'julie.bouaye@hotmail.fr', '1994-12-4', 'https://internetjulie.com/wp-content/uploads/2018/10/AdobeStock_84018860.jpeg');
   }
 
   afficherCollegue(nomCollegue: string): Observable<Collegue[]> {
@@ -62,6 +62,63 @@ export class DataService {
         return collegueDemande;
       }))
 
+  }
+
+  // Options de la requête HTTP
+  // ici le corps de la requête sera du JSON
+  httpOptions = {
+    headers: new HttpHeaders({
+      "Content-Type": "application/json"
+    })
+  };
+
+  patchCollegueMail(collegue: Collegue): Observable<string> {
+    let url: string = this.URL_BACKEND;
+    url += '/collegue/';
+    url += collegue.matricule;
+    console.log(url);
+    return this._http.patch(url, {
+      "email": collegue.email
+    }, {
+        headers: new HttpHeaders({
+          "Content-Type": "application/json"
+        }),
+        responseType: 'text'
+      });
+  }
+
+  patchColleguePhotoUrl(collegue: Collegue): Observable<string> {
+    let url: string = this.URL_BACKEND;
+    url += '/collegue/modifphoto/';
+    url += collegue.matricule;
+    console.log(collegue.photoUrl);
+
+    return this._http.patch(url, {
+      "photoUrl": collegue.photoUrl
+    }, {
+        headers: new HttpHeaders({
+          "Content-Type": "application/json"
+        }),
+        responseType: 'text'
+      });
+  }
+
+  postCollegue(collegue: Collegue): Observable<string> {
+    let url: string = this.URL_BACKEND;
+    url += '/collegue/';
+    
+    return this._http.post(url, {
+      "nom": collegue.nom,
+      "prenoms": collegue.prenoms,
+      "dateDeNaissance": collegue.dateDeNaissance,
+      "email": collegue.email,
+      "photoUrl": collegue.photoUrl
+    }, {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json"
+      }),
+      responseType: 'text'
+    });
   }
 
   //Code pour associer ma recherche de collègue au composant collegue

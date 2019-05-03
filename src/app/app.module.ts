@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule }   from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import {NgbModule,NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
@@ -7,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CollegueComponent } from './collegue/collegue.component';
 import { RechercheCollegueParNomComponent } from './recherche-collegue-par-nom/recherche-collegue-par-nom.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CreerCollegueComponent } from './creer-collegue/creer-collegue.component';
 
 
 
@@ -14,10 +16,11 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     AppComponent,
     CollegueComponent,
-    RechercheCollegueParNomComponent
+    RechercheCollegueParNomComponent,
+    CreerCollegueComponent
       ],
   imports: [
-    BrowserModule, NgbModule, ReactiveFormsModule, HttpClientModule
+    BrowserModule, NgbModule, ReactiveFormsModule, HttpClientModule, FormsModule 
   ],
   exports: [],
   providers: [],
