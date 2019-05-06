@@ -49,13 +49,13 @@
       <div [hidden]="!edition" class="col-3 offset-9">
         <ng-template #content let-modal>
           <div class="modal-header ">
-            <h4 class="modal-title" id="modal-basic-title">Créer un collègue</h4>
+            <h4 class="modal-title" id="modal-basic-title">Modifier un collègue</h4>
             <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            Vous souhaitez ajouter un collègue avec les paramètres suivants :
+            Vous souhaitez modifier le collègue avec les paramètres suivants :
             <hr>
             <div class="row ">
               <p class="col-6 card-text">E-mail :</p>
@@ -133,18 +133,18 @@
           </div>
         </div>
         <div class="col-md-3 col-5 offset-md-9 offset-7">
-          <button [hidden]="edition" (click)="afficherModification()">Basculer en mode édition</button>
+          <button [hidden]="edition" style="padding: 2%" (click)="afficherModification()">Basculer en mode édition</button>
         </div>
         <div [hidden]="!edition" class="col-3 offset-9">
           <ng-template #content let-modal>
             <div class="modal-header ">
-              <h4 class="modal-title" id="modal-basic-title">Créer un collègue</h4>
+              <h4 class="modal-title" id="modal-basic-title">Modifier un collègue</h4>
               <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              Vous souhaitez ajouter un collègue avec les paramètres suivants :
+              Vous souhaitez modifier le collègue avec les paramètres suivants :
               <hr>
               <div class="row ">
                 <p class="col-6 card-text">E-mail :</p>
@@ -161,12 +161,12 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-outline-dark"
-                (click)="modal.close('Save click');submitDemande()">Ajouter</button>
+                (click)="modal.close('Save click');submitDemande()">Valider</button>
             </div>
           </ng-template>
 
-          <button [disabled]="!formCtrl2.valid" class="btn btn-lg btn-outline-primary" (click)="open(content)">Créer
-            un
+          <button [disabled]="!formCtrl2.valid" class="btn btn-lg btn-outline-primary" (click)="open(content)">Modifier
+            le
             collègue</button>
           <ng-container *ngIf="formCtrl2.touched && formCtrl2.invalid">
             <p>Les champs rentrés ne respectent pas la consigne de Mr Oddet</p>
