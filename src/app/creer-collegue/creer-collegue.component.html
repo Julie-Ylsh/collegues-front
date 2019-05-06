@@ -32,9 +32,12 @@
       </div>
 
       <label class="col-6 " style="margin-top: 2%">E-mail :</label>
-      <input class="col-6 card-text" [(ngModel)]="collegueACreer.email" #saisieMail="ngModel" name="email" required
+      <input class="col-6 card-text"  [(ngModel)]="collegueACreer.email" #saisieMail="ngModel" name="email" required appEmailValidator
         minlength="4" style="margin-top: 2%">
-
+        <p class="col-6 offset-6 " *ngIf="saisieMail.errors && saisieMail.errors.emailExistant">
+            Je suis désolée, mais le mail existe déjà dans la base de données
+          </p>
+      
       <label class="col-6 " style="margin-top: 2%">Photo Url :</label>
       <input class="col-6 card-text" [(ngModel)]="collegueACreer.photoUrl" #saisieUrl="ngModel" name="photoUrl" required
         minlength="7" style="margin-top: 2%">

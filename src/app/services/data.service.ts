@@ -6,6 +6,9 @@ import { environment } from '../../environments/environment';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { AbstractControl } from '@angular/forms';
+
+import { error } from '@angular/compiler/src/util';
 
 @Injectable({
   providedIn: 'root'
@@ -45,7 +48,7 @@ export class DataService {
 
   }
 
-  //Au cas où on a besoin de récupérer un collègue d'apèrs son matricule
+  //Au cas où on a besoin de récupérer un collègue d'après son matricule
   recupererCollegueDemande(matricule: string, nomCollegue: string): Observable<Collegue> {
     let collegueDemande: Collegue;
     let url: string = this.URL_BACKEND
@@ -106,7 +109,7 @@ export class DataService {
   postCollegue(collegue: Collegue): Observable<string> {
     let url: string = this.URL_BACKEND;
     url += '/collegue/';
-    
+
     return this._http.post(url, {
       "nom": collegue.nom,
       "prenoms": collegue.prenoms,
@@ -114,11 +117,31 @@ export class DataService {
       "email": collegue.email,
       "photoUrl": collegue.photoUrl
     }, {
-      headers: new HttpHeaders({
-        "Content-Type": "application/json"
-      }),
-      responseType: 'text'
-    });
+        headers: new HttpHeaders({
+          "Content-Type": "application/json"
+        }),
+        responseType: 'text'
+      });
+  }
+
+  //Vérification auprès du serveur si l'email existe déjà
+  checkEmail(email: AbstractControl): Observable<Collegue> {
+  
+    let url: string = this.URL_BACKEND
+    url += "/collegue/mail?mail=";
+    url += email.value
+    console.log(url);
+    return this._http.get<Collegue[]>(url).pipe(
+      map(collegueTab => {
+        for (let collegue of collegueTab) {
+          if (collegue.email == email.value) {
+            console.log('collègue trouvé' + collegue.nom + collegue.prenoms)
+            return collegue;
+          }
+          else console.log('pas de collègue trouvé');
+        }
+      }))
+
   }
 
   //Code pour associer ma recherche de collègue au composant collegue

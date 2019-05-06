@@ -9,6 +9,7 @@ import { CollegueComponent } from './collegue/collegue.component';
 import { RechercheCollegueParNomComponent } from './recherche-collegue-par-nom/recherche-collegue-par-nom.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CreerCollegueComponent } from './creer-collegue/creer-collegue.component';
+import { EmailValidatorDirective } from './validators/email-validator.directive';
 
 
 
@@ -17,7 +18,8 @@ import { CreerCollegueComponent } from './creer-collegue/creer-collegue.componen
     AppComponent,
     CollegueComponent,
     RechercheCollegueParNomComponent,
-    CreerCollegueComponent
+    CreerCollegueComponent,
+    EmailValidatorDirective
       ],
   imports: [
     BrowserModule, NgbModule, ReactiveFormsModule, HttpClientModule, FormsModule 

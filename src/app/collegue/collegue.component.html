@@ -3,7 +3,7 @@
   <div class="card">
     <div class="card-header">{{col.nom}} {{col.prenoms}}</div>
     <div class="row card-body">
-      <img class="col-4 " [src]="col.photoUrl"alt="Card image cap" height="100%">
+      <img class="col-md-4 col-12" [src]="col.photoUrl" alt="Card image cap" height="100%">
       <div class="col-8">
         <div class="row ">
           <p class="col-6 card-text">Matricule :</p>
@@ -11,19 +11,25 @@
           <p class="col-6 card-text">Date de naissance :</p>
           <p class="col-6 card-text">{{col.dateDeNaissance}}</p>
 
+          <!--Form qui apparait quand le bouton edition est cliqué-->
           <div [hidden]="!edition">
             <form class="col-12 needs-validation" novalidate (ngSubmit)="submit()" #formCtrl="ngForm">
               <div class="row ">
-                <label class="col-6 card-text">E-mail :</label><input class="col-6 card-text"
-                  [(ngModel)]="col.email" #saisieMail="ngModel" name="email" required minlength="4">
+                <label class="col-6 card-text">E-mail :</label><input class="col-6 card-text" [(ngModel)]="col.email"
+                  #saisieMail="ngModel" name="email" appEmailValidator required minlength="4">
+                <p class="col-6 offset-6 " *ngIf="saisieMail.errors && saisieMail.errors.emailExistant">
+                  Je suis désolée, mais le mail existe déjà dans la base de données
+                </p>
+              
                 <label class="col-6 card-text">Photo Url :</label><input class="col-6 card-text"
-                  [(ngModel)]="col.photoUrl" #saisieUrl="ngModel" name="photoUrl" required minlength="7">
+                  [(ngModel)]="col.photoUrl"  style="margin-top: 2%" #saisieUrl="ngModel" name="photoUrl" required minlength="7">
                 <button [hidden]=true type="submit">Valider</button>
                 <!--Nan mais on sait jamais, ça peut servir-->
               </div>
             </form>
           </div>
 
+          <!--Ce que l'on voit quand le bouton edition n'est pas cliqué-->
           <div class="col-12" [hidden]="edition">
             <div class="row ">
               <p class="col-6 card-text">E-mail :</p>
@@ -34,7 +40,8 @@
           </div>
         </div>
       </div>
-      <div class="col-3 offset-9">
+      <div class="col-md-3 col-5 offset-md-9 offset-7">
+        <br/>
         <button [hidden]="edition" (click)="afficherModification()">Basculer en mode édition</button>
       </div>
 
@@ -69,7 +76,8 @@
           </div>
         </ng-template>
 
-        <button [disabled]="!formCtrl.valid" class="btn btn-lg btn-outline-primary" (click)="open(content)">Modifier le collègue</button>
+        <button [disabled]="!formCtrl.valid" class="btn btn-lg btn-outline-primary col-12" (click)="open(content)">Modifier le
+          collègue</button>
         <ng-container *ngIf="formCtrl.touched && formCtrl.invalid">
           <p>Les champs rentrés ne respectent pas la consigne de Mr Oddet</p>
         </ng-container>
@@ -99,9 +107,14 @@
               <form class="col-12 needs-validation" novalidate (ngSubmit)="submitDemande()" #formCtrl2="ngForm">
                 <div class="row ">
                   <label class="col-6 card-text">E-mail :</label><input class="col-6 card-text"
-                    [(ngModel)]="collegueDemande.email" #saisieMailMobile="ngModel" name="email2" required minlength="4">
+                    [(ngModel)]="collegueDemande.email" #saisieMailMobile="ngModel" name="email2" required appEmailValidator minlength="4">
+                    <p class="col-6 offset-6 " *ngIf="saisieMailMobile.errors && saisieMailMobile.errors.emailExistant">
+                      Je suis désolée, mais le mail existe déjà dans la base de données
+                    </p>
+                    
                   <label class="col-6 card-text">Photo Url :</label><input class="col-6 card-text"
-                    [(ngModel)]="collegueDemande.photoUrl" #saisieUrlMobile="ngModel" name="photoUrl2" required minlength="7">
+                    [(ngModel)]="collegueDemande.photoUrl"  style="margin-top: 2%" #saisieUrlMobile="ngModel" name="photoUrl2" required
+                    minlength="7">
                   <button [hidden]=true type="submit">Valider</button>
                   <!--Nan mais on sait jamais, ça peut servir-->
                 </div>
