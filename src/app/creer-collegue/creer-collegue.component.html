@@ -12,14 +12,21 @@
       <label class="col-6 ">Nom :</label>
       <input class="col-6 card-text" [(ngModel)]="collegueACreer.nom" #saisieNom="ngModel" name="nom" required
         minlength="2">
+      <p class="col-6 offset-6 " *ngIf="saisieNom.invalid && saisieNom.touched">
+        Merci de sélectionner un nom avec au moins 2 lettres.
+      </p>
 
       <label class="col-6 " style="margin-top: 2%">Prénom(s) :</label>
       <input class="col-6 card-text" [(ngModel)]="collegueACreer.prenoms" #saisiePrenom="ngModel" name="prenoms"
         required minlength="2" style="margin-top: 2%">
+      <p class="col-6 offset-6 " *ngIf="saisiePrenom.invalid && saisiePrenom.touched">
+        Merci de sélectionner un prénom avec au moins 2 lettres.
+      </p>
 
       <label class="col-6 " style="margin-top: 2%">Date de naissance :</label>
       <input class="col-4 form-control" name="date" placeholder="yyyy-mm-dd" ngbDatepicker [(ngModel)]="dateCollegue"
         #d="ngbDatepicker" style="margin-top: 2%">
+
       <div class="col-2 input-group-append" style="margin-top: 2%">
         <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
       </div>
@@ -65,13 +72,12 @@
           <p class="col-6 card-text">{{saisieUrl.value }}</p>
         </div>
 
-        <hr>
-        Merci de vérifier que ce sont les bons paramètres !
+
 
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click');submit()">Valider</button>
+        <button type="button" class="btn btn-outline-dark" (click)="submit(modal)">Valider</button>
       </div>
     </ng-template>
 

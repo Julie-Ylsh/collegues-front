@@ -43,7 +43,7 @@ export class CollegueComponent implements OnInit {
 
   open(content) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-      this.closeResult = `Collegue ajouté`; //Affiche la phrase si résultat ok. On peut récupérer le result en le mettant dans la phrase
+      this.closeResult = ` `; //Affiche la phrase si résultat ok. On peut récupérer le result en le mettant dans la phrase
     }, (reason) => {
       this.closeResult = `${this.getDismissReason(reason)}`; // Affiche la phrase si la personne a quitté
     });
@@ -81,7 +81,7 @@ export class CollegueComponent implements OnInit {
   //Fonction pour quand un collègue est demandé
   submitDemande() {
     console.log(this.collegueDemande);
-    this._demoSubSrv.patchCollegueMail(this.collegueDemande).subscribe();
+    this._demoSubSrv.patchCollegueMail(this.collegueDemande).subscribe(()=> {}, err => console.log (err.message));
     this._demoSubSrv.patchColleguePhotoUrl(this.collegueDemande).subscribe();
     this.edition = false;
   }

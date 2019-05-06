@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DataService } from '../services/data.service';
 import { NgbDatepickerConfig, NgbCalendar, NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Collegue } from '../models/Collegue';
@@ -22,9 +22,9 @@ export class CreerCollegueComponent implements OnInit {
   collegueACreer: Collegue = new Collegue();
 
   //Récupérer la date de naissance du calendrier
-  dateCollegue: NgbDateStruct ;
-  get dateAfficherModal(){
-    return new Date(this.dateCollegue.year,this.dateCollegue.month, this.dateCollegue.day);
+  dateCollegue: NgbDateStruct;
+  get dateAfficherModal() {
+    return new Date(this.dateCollegue.year, this.dateCollegue.month, this.dateCollegue.day);
   }
 
   constructor(private _demoSubSrv: DataService, private modalService: NgbModal, config: NgbDatepickerConfig, calendar: NgbCalendar) {
@@ -36,7 +36,7 @@ export class CreerCollegueComponent implements OnInit {
   ngOnInit() {
   }
 
-  submit() {
+  submit(modal: NgbActiveModal) {
     //Récupérer la date de naissance au bon format
     let jourNaissance: string;
     let moisNaissance: string;
@@ -56,14 +56,24 @@ export class CreerCollegueComponent implements OnInit {
     this.collegueACreer.dateDeNaissance = `${this.dateCollegue.year}-${moisNaissance}-${jourNaissance}`
 
     console.log(this.collegueACreer);
-    this._demoSubSrv.postCollegue(this.collegueACreer).subscribe();
+
+    this._demoSubSrv.postCollegue(this.collegueACreer).subscribe(() => {
+      modal.close('Save click');
+    }, err => {
+      console.log(err.message);
+      return alert(`Vous n'avez pas entré les bons paramètres ! \n
+      Rappel : \n
+      -Age supérieur à 18 ans\n
+      -Adresse mail valide\n
+      -Photo commençant par http://`)
+    });
 
   }
 
   //Fonctions pour la modal
   open(content) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-      this.closeResult = `Collegue ajouté`; //Affiche la phrase si résultat ok. On peut récupérer le result en le mettant dans la phrase
+      this.closeResult = ` `; //Affiche la phrase si résultat ok. On peut récupérer le result en le mettant dans la phrase
       this.afficherCreation = false;
       this.creationOK = true;
     }, (reason) => {
@@ -73,13 +83,13 @@ export class CreerCollegueComponent implements OnInit {
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
-      this.afficherCreation = false;
+      this.afficherCreation = true;
       return 'Touche Echap';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
       this.afficherCreation = false;
       return 'Touche retour';
     } else {
-      this.afficherCreation = false;
+      this.afficherCreation = true;
       return ` `; //mettre ${reason} si vous voulez afficher la raison
     }
   }
