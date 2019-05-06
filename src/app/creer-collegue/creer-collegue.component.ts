@@ -36,7 +36,7 @@ export class CreerCollegueComponent implements OnInit {
   ngOnInit() {
   }
 
-  submit(modal: NgbActiveModal) {
+  submit(modal?: NgbActiveModal) {
     //Récupérer la date de naissance au bon format
     let jourNaissance: string;
     let moisNaissance: string;
