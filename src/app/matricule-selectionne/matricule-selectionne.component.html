@@ -1,0 +1,126 @@
+<div class="container-fluid">
+  <div *ngIf="!col else blocCollegue">Requête en cours</div>
+  <ng-template #blocCollegue>
+    <div class="col-12 " style="margin-top:2%">
+      <div class="card">
+        <div class="card-header">{{col.nom}} {{col.prenoms}}</div>
+        <div class="row card-body">
+          <img class="img col-md-4 col-12" [src]="col.photoUrl" alt="Card image cap">
+          <div class="col-8">
+            <div class="row ">
+              <p class="col-6 card-text">Matricule :</p>
+              <p class="col-6 card-text">M{{col.matricule}}</p>
+              <p class="col-6 card-text">Date de naissance :</p>
+              <p class="col-6 card-text">{{col.dateDeNaissance}}</p>
+
+              <!--Form qui apparait quand le bouton edition est cliqué-->
+              <div [hidden]="!edition">
+                <form class="col-12 needs-validation" novalidate (ngSubmit)="submit()" #formCtrl="ngForm">
+                  <div class="row ">
+                    <label class="col-6 card-text">E-mail :</label><input class="col-6 card-text"
+                      [(ngModel)]="col.email" #saisieMail="ngModel" name="email" appEmailValidator required
+                      minlength="4">
+                    <p class="col-6 offset-6 " *ngIf="saisieMail.errors && saisieMail.errors.emailExistant">
+                      Je suis désolée, mais le mail existe déjà dans la base de données
+                    </p>
+
+                    <label class="col-6 card-text">Photo Url :</label><input class="col-6 card-text"
+                      [(ngModel)]="col.photoUrl" style="margin-top: 2%" #saisieUrl="ngModel" name="photoUrl" required
+                      minlength="7">
+                    <button [hidden]=true type="submit">Valider</button>
+                    <!--Nan mais on sait jamais, ça peut servir-->
+                  </div>
+                </form>
+              </div>
+
+              <!--Ce que l'on voit quand le bouton edition n'est pas cliqué-->
+              <div class="col-12" [hidden]="edition">
+                <div class="row ">
+                  <p class="col-6 card-text">E-mail :</p>
+                  <p class="col-6 card-text">{{col.email}}</p>
+                  <p class="col-6 card-text">Photo Url :</p>
+                  <p class="col-6 card-text">{{col.photoUrl}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 col-5 offset-md-9 offset-7">
+            <br />
+            <button [hidden]="edition" (click)="afficherModification()">Basculer en mode édition</button>
+          </div>
+
+          <!--Modal qui apparaît si le bouton "basculer en mode edition" est cliqué-->
+          <div [hidden]="!edition" class="col-3 offset-9">
+            <ng-template #content let-modal>
+              <div class="modal-header ">
+                <h4 class="modal-title" id="modal-basic-title">Modifier un collègue</h4>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Vous souhaitez modifier le collègue avec les paramètres suivants :
+                <hr>
+                <div class="row ">
+                  <p class="col-6 card-text">E-mail :</p>
+                  <p class="col-6 card-text">{{saisieMail.value | uppercase}}</p>
+
+                  <p class="col-6 card-text">Photo Url :</p>
+                  <p class="col-6 card-text">{{saisieUrl.value }}</p>
+                </div>
+
+                <hr>
+                Merci de vérifier que ce sont les bons paramètres !
+
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark"
+                  (click)="modal.close('Save click');submit()">Valider</button>
+              </div>
+            </ng-template>
+
+            <button [disabled]="!formCtrl.valid" class="btn btn-lg btn-outline-primary col-12"
+              (click)="open(content)">Modifier le
+              collègue</button>
+            <ng-container *ngIf="formCtrl.touched && formCtrl.invalid">
+              <p>Les champs rentrés ne respectent pas la consigne de Mr Oddet</p>
+            </ng-container>
+            <pre>{{closeResult}}</pre>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </ng-template>
+
+  <!--Formulaire pour écrire des notes-->
+  <hr />
+  <h2 style="text-align: center">Envie de commenter ?</h2>
+  <form class="col-12 needs-validation" novalidate (ngSubmit)="submitCommentaire()" #formCtrl2="ngForm"
+    style="margin-top:2%">
+    <textarea rows="5" style="width:100%; height:50px;" name="commentaire"
+      [(ngModel)]="commentaire">Ecrivez ce que vous voulez ;)</textarea>
+    <button type="button" class="btn btn-outline-dark" (click)="submitCommentaire()">Envoyer</button>
+  </form>
+
+  <div class="row">
+    <button class="btn btn-lg btn-outline-primary" onclick="history.back()" style="margin-top:2%; margin-left:3%">
+      Retour
+    </button>
+  </div>
+
+  <div class="row">
+    <button class="btn btn-lg btn-outline-primary col-12" (click)="afficherCommentaires()"
+      style="margin-top:2%; margin-left:3%">
+      Tous les comentaires du collègue
+    </button>
+
+    <div class="row" *ngIf="comOk">
+    <div class="col-12 col-sm-6 col-lg-3 " *ngFor="let com of tabCommentaires">
+      <p>{{com.commentaire}}</p>
+    </div>
+  </div>
+
+  </div>
+</div>

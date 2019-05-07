@@ -2,7 +2,7 @@ import { Collegue } from "../models/Collegue";
     export const collegueMock: Collegue[] = [];
 
     collegueMock.push(new Collegue(
-        '1651fghdfg',
+        42,
         'Paul',
         'Gurpratap Singh',
         '1987-12-18',
@@ -10,7 +10,7 @@ import { Collegue } from "../models/Collegue";
         'paul@mail.net'
     ));
 collegueMock.push(new Collegue(
-    '1652fghdfg',
+    12,
     'Marty',
     'Nicolas',
     '1987-03-31',
@@ -18,7 +18,7 @@ collegueMock.push(new Collegue(
     'nicolas@mail.net'
 ));
 collegueMock.push(new Collegue(
-    '1653fghdfg',
+    26,
     'Jeltsch',
     'Julie',
     '1994-01-01',
@@ -27,7 +27,7 @@ collegueMock.push(new Collegue(
 ));
 
 collegueMock.push(new Collegue(
-    '1657fghdfg',
+    4,
     'Jeltsch',
     'Catherine',
     '1994-01-01',

@@ -1,5 +1,5 @@
 export class Collegue {
-    constructor(public matricule?: string,
+    constructor(public matricule?: number,
         public nom?: string,
         public prenoms?: string,
         public email?: string,

@@ -1,0 +1,9 @@
+/*Ajuster la taille des images*/
+.img{
+    width:200px;
+    height:300px;
+ 
+ /*Scale down will take the necessary specified space that is 100px x 100px without stretching the image*/
+     object-fit:cover;
+ 
+ }

@@ -1,0 +1,38 @@
+<div class="container-fluid" style="text-align:center">
+
+  <h1>
+      {{title}} - Bienvenue
+  </h1>
+  <img width="300"
+      src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+  <app-collegue [col]="julie"></app-collegue>
+  <hr>
+  <!--Désolée Rossi mais c'était moche côte à côte-->
+  <app-recherche-collegue-par-nom></app-recherche-collegue-par-nom>
+  <hr>
+  <app-creer-collegue></app-creer-collegue>
+  <hr>
+
+  <ngb-carousel *ngIf="images">
+      <ng-template ngbSlide>
+          <img [src]="images[1]" alt="Random first slide">
+          <div class="carousel-caption">
+              <h3>Voici un magnifique Carroussel</h3>
+              <p>Il a été réalisé juste pour vous</p>
+          </div>
+      </ng-template>
+      <ng-template ngbSlide>
+          <img [src]="images[2]" alt="Random second slide">
+          <div class="carousel-caption">
+              <h3>Pour vous montrer ce qu'on peut faire avec Ngp Bootstrap</h3>
+              <p>Magnifique hein ?</p>
+          </div>
+      </ng-template>
+      <ng-template ngbSlide>
+          <img [src]="images[0]" alt="Random third slide">
+          <div class="carousel-caption">
+              <h3>Profitez de ces belles images</h3>
+              <p>Parce qu'après ça risque de se compliquer</p>
+          </div>
+      </ng-template>
+  </ngb-carousel>

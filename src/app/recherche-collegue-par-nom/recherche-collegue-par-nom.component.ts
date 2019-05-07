@@ -43,7 +43,7 @@ export class RechercheCollegueParNomComponent implements OnInit {
       });
   }
 
-  clickC1(matricule: string) {
+  clickC1(matricule: number) {
     let collegueAAfficher: Collegue;
     this.afficheCollegue = true;
     this._srv.listeColleguesService.forEach((collegue) => {
