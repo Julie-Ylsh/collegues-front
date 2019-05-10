@@ -1,9 +1,25 @@
-<nav class="row text-center">
-    <a class="col-3 menu" routerLink="/accueil" routerLinkActive="active-link">Accueil</a>
-    <a class="col-3 menu" routerLink="/galerie" routerLinkActive="active-link">Galerie</a>
-    <a class="col-3 menu" routerLink="/administration" routerLinkActive="active-link">Administration</a>
-    <a class="col-3 menu" routerLink="/apropos" routerLinkActive="active-link">A Propos</a>
-</nav>
+
+   
+<!-- Navbar (sit on top) -->
+<div class="w3-top" >
+    <div class="w3-bar" id="myNavbar" (scroll)="deroule()">
+      <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" onclick="toggleFunction()" title="Toggle Navigation Menu">
+        <i class="fa fa-bars"></i>
+      </a>
+      <a class="w3-bar-item w3-button" routerLink="/accueil" routerLinkActive="active-link"> Accueil</a>
+      <a class="w3-bar-item w3-button w3-hide-small" routerLink="/galerie" routerLinkActive="active-link"><i class="fa fa-th"></i> Galerie</a>
+      <a class="w3-bar-item w3-button w3-hide-small" routerLink="/accueil" routerLinkActive="active-link"><i class="fa fa-envelope"></i> Administration</a>
+      <a class="w3-bar-item w3-button w3-hide-small" routerLink="/accueil" routerLinkActive="active-link"><i class="fa fa-user"></i> A Propos</a>
+             
+    </div>
+  
+    <!-- Navbar on small screens -->
+    <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
+      <a class="w3-bar-item w3-button" routerLink="/galerie" routerLinkActive="active-link" onclick="toggleFunction()"> Galerie</a>
+      <a class="w3-bar-item w3-button" routerLink="/administration" routerLinkActive="active-link" onclick="toggleFunction()"> Administration</a>
+      <a class="w3-bar-item w3-button" routerLink="/apropos" routerLinkActive="active-link" onclick="toggleFunction()"> A Propos</a>
+          </div>
+  </div>
 
 <main>
     <router-outlet></router-outlet>

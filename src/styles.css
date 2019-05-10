@@ -2,7 +2,7 @@
 
 /* Styles du menu */
 .active-link {
-    color:red;
+    font-weight:800 ;
      
 }
 
@@ -25,4 +25,43 @@
 .matriculeTrouve:hover{
     text-decoration: underline !important;
     color:blue !important
+}
+
+/*Styles w3*/
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
+body, html {
+  height: 100%;
+  color: #777;
+  line-height: 1.8;
+}
+
+h3 {
+  font-size: 200px;
+}
+
+
+/* Create a Parallax Effect */
+.bgimg-1 {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* First image (Logo. Full height) */
+.bgimg-1, .w3-display-container {
+    background-image: url('https://images.pexels.com/photos/949587/pexels-photo-949587.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260') !important;
+  min-height: 100%;
+  height: 177px;
+}
+
+.w3-wide {letter-spacing: 7px;}
+.w3-hover-opacity {cursor: pointer;}
+
+/* Turn off parallax scrolling for tablets and phones */
+@media only screen and (max-device-width: 1600px) {
+  .bgimg-1 {
+    background-attachment: scroll;
+    min-height: 400px;
+  }
 }

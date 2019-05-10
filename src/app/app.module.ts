@@ -16,7 +16,7 @@ import { ROUTES } from './app.routes'
 import { RouterModule } from '@angular/router';
 import { AccueilComponent } from './accueil/accueil.component';
 import { MatriculeSelectionneComponent } from './matricule-selectionne/matricule-selectionne.component';
-
+import { AuthentificationComponent } from './authentification/authentification.component';
 
 
 @NgModule({
@@ -28,7 +28,8 @@ import { MatriculeSelectionneComponent } from './matricule-selectionne/matricule
     EmailValidatorDirective,
     AccueilComponent,
     GalerieComponent,
-    MatriculeSelectionneComponent
+    MatriculeSelectionneComponent,
+    AuthentificationComponent
   ],
   imports: [
     BrowserModule, NgbModule, ReactiveFormsModule, HttpClientModule, FormsModule, RouterModule.forRoot(ROUTES)

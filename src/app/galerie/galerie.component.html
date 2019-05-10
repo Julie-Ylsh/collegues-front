@@ -1,7 +1,10 @@
 <div class="container-fluid" style="text-align:center">
-  <h1>
-      Galerie
-  </h1>
+<!-- First Parallax Image with Logo Text -->
+<div class="bgimg-1 w3-display-container w3-opacity-min" id="home">
+  <div class="w3-display-middle" style="white-space:nowrap;">
+    <span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity"><span class="w3-hide-small">GALLERIE</span></span>
+  </div>
+</div>
 <div class="row">
   <div class="col-12 col-sm-6 col-lg-3 " *ngFor="let col of tabCollegues">
       <a routerLink="/collegue/{{col.matricule}}">

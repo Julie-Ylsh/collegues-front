@@ -24,7 +24,7 @@ export class MatriculeSelectionneComponent implements OnInit {
   saisieMail: string;
   saisieUrl: string;
 
-  //Création de la variable commentaire qui sera charchée dans le formulaire
+  //Création de la variable commentaire qui sera chargée dans le formulaire
   commentaire: string;
 
   //Création du tableau de commentaires et de l'observable
