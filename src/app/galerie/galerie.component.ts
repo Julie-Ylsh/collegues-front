@@ -11,14 +11,17 @@ import { Collegue } from '../models/Collegue';
 })
 
 export class GalerieComponent implements OnInit {
-  tabCollegues:Collegue[] = new Array ();
-  collegues :Observable<Collegue[]>;
+  tabCollegues: Collegue[] = new Array();
+  collegues: Observable<Collegue[]>;
 
-  constructor(private _service:DataService, private _router:Router) { }
+  constructor(private _service: DataService, private _router: Router) { }
 
   ngOnInit() {
-    this.collegues = this._service.afficherGallerie ();
-    this.collegues.subscribe (collegues => this.tabCollegues = collegues,
-                              error => console.log (error.message));
+    this.collegues = this._service.afficherGallerie();
+    this.collegues.subscribe(collegues => this.tabCollegues = collegues,
+      error => {
+        console.log(error.message);
+        document.location.href = '/auth'
+      });
   }
 }
