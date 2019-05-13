@@ -40,7 +40,9 @@ export class DataService {
     url += "/collegue?nomClient=";
     url += nomCollegue
     console.log(url);
-    return this._http.get<Collegue[]>(url).pipe(
+    return this._http.get<Collegue[]>(url, {
+      withCredentials: true,
+    }).pipe(
       map(collegueTab => {
         for (let collegue of collegueTab) {
           if (collegue.nom == nomCollegue) {
@@ -62,7 +64,9 @@ export class DataService {
     let url: string = this.URL_BACKEND
     url += "/collegue/photo";
     console.log(url);
-    return this._http.get<Collegue[]>(url).pipe(
+    return this._http.get<Collegue[]>(url, {
+      withCredentials: true,
+    }).pipe(
       map(collegueTab => {
         for (let collegue of collegueTab) {
           this.listeColleguesService.push(collegue);
@@ -81,7 +85,9 @@ export class DataService {
     url += "/collegue?nomClient=";
     url += nomCollegue
     console.log(url);
-    return this._http.get<Collegue[]>(url).pipe(
+    return this._http.get<Collegue[]>(url, {
+      withCredentials: true,
+    }).pipe(
       map(collegueTab => {
         for (let collegue of collegueTab) {
           if (collegue.matricule == matricule) {
@@ -99,7 +105,9 @@ export class DataService {
     url += "/collegue/photo/found?matricule=";
     url += matricule
     console.log(url);
-    return this._http.get<Collegue>(url)
+    return this._http.get<Collegue>(url, {
+      withCredentials: true
+    })
   }
 
   // Options de la requête HTTP
@@ -121,7 +129,8 @@ export class DataService {
         headers: new HttpHeaders({
           "Content-Type": "application/json"
         }),
-        responseType: 'text'
+        responseType: 'text',
+        withCredentials: true
       });
   }
 
@@ -137,7 +146,8 @@ export class DataService {
         headers: new HttpHeaders({
           "Content-Type": "application/json"
         }),
-        responseType: 'text'
+        responseType: 'text',
+        withCredentials: true
       });
   }
 
@@ -155,7 +165,8 @@ export class DataService {
         headers: new HttpHeaders({
           "Content-Type": "application/json"
         }),
-        responseType: 'text'
+        responseType: 'text',
+        withCredentials: true
       });
   }
 
@@ -172,7 +183,8 @@ export class DataService {
         headers: new HttpHeaders({
           "Content-Type": "application/json"
         }),
-        responseType: 'text'
+        responseType: 'text',
+        withCredentials: true
       });
   }
 
@@ -183,7 +195,9 @@ export class DataService {
     url += matricule;
     url += "/commentaires/";
     console.log(url);
-    return this._http.get<Commentaires[]>(url).pipe(
+    return this._http.get<Commentaires[]>(url, {
+      withCredentials: true,
+    }).pipe(
       map(commentairesTab => {
         for (let commentaire of commentairesTab) {
           this.listeCommentairesService.push(commentaire);
@@ -202,7 +216,9 @@ export class DataService {
     url += "/collegue/mail?mail=";
     url += email.value
     console.log(url);
-    return this._http.get<Collegue[]>(url).pipe(
+    return this._http.get<Collegue[]>(url, {
+      withCredentials: true,
+    }).pipe(
       map(collegueTab => {
         for (let collegue of collegueTab) {
           if (collegue.email == email.value) {

@@ -15,27 +15,27 @@ export class UserService {
     URL_BACKEND = environment.backendUrl;
 
     constructor(private _http: HttpClient) {
-        this.userConnected = false;
-        console.log(this.userConnected)
         this.getCollegueCookie().subscribe(() => {
             console.log('cookie ok');
             this.userConnected = true;
-          }, err => {
+        }, err => {
             console.log(err.message);
             this.userConnected = false;
-          });   
+        });
     }
 
     ngOnInit(): void {
-               
+
 
     }
     //Récupérer un collègue avec le cookie
-    getCollegueCookie() :Observable<Collegue> {
+    getCollegueCookie(): Observable<Collegue> {
         let url: string = this.URL_BACKEND
         url += "/me";
-       console.log(url);
-        return this._http.get<Collegue>(url)
+        console.log(url);
+        return this._http.get<Collegue>(url, {
+            withCredentials: true
+        })
     }
 
     //Méthode pour se connecter
@@ -66,7 +66,7 @@ export class UserService {
             responseType: 'text',
             withCredentials: true
         }).pipe(tap(() => {
-            this.userConnected = false; 
+            this.userConnected = false;
             console.log('deconnexion Ok')
         }));
     }
@@ -77,4 +77,4 @@ export class UserService {
         else return true
     }
 
-   }
+}

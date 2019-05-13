@@ -9,7 +9,7 @@ import { AuthentificationComponent } from './authentification/authentification.c
 export const ROUTES: Routes = [
     { path: 'auth', component: AuthentificationComponent },
     { path: 'galerie', component: GalerieComponent },
-    {
+        {
         path: '',
         canActivate: [ConnexionGuard],
         children: [
